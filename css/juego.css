@@ -24,33 +24,66 @@ li::before {
   background: #FFF;
   padding: 30px;
   color: #000;
+  background-color: rgba(157, 162, 137, 0.54);
+
 }
 #instrucciones{
-  background-color: rgb(20, 133, 77);
-}
+color: #fff;
+padding-left: 15px;
 
-.subTi1{
-  font-family: 'Playfair Display', serif;
-  background-color: rgb(224, 210, 181);
-  padding:10%;
-  margin:10%;
-  border-radius: 10%;
-  width: 100%;
-  line-height:1em;
 }
-
 .col-40, .col-60 {
   display: table-cell;
   margin: 0;
   vertical-align: top;
+
+}
+#titulos{
+
+
+}
+h1 {
+  font-family: 'Playfair Display', serif;
+  background-color: rgba(126, 140, 58, 0.86);
+  color: #fff;
+  width: 102%;
+  padding-left: 6%;
+}
+
+h2 {
+font-family: 'Playfair Display', serif;
+color:#fff;
+padding-left: 15%;
+
+}
+
+.col-60{
+ background-color: rgba(126, 140, 58, 0.79);
+ padding-left: 1.5%;
+ padding-right: 1.5%;
+ padding-top: 1.5%;
+ padding-bottom: 1.5%;
 }
 
 #juego div {
-
   text-align: center;
   animation: fadein 2s;
 }
 
+.piezasJuego{
+  padding-right: auto;
+  padding-left: auto;
+  padding-top: auto;
+  padding-bottom: auto;
+  margin: 1px 5px;
+  width: 203px;
+  height: 203px;
+
+}
+.pieDelJuego{
+  background-color: rgba(122, 117, 64, 0.75);
+
+}
 @keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
