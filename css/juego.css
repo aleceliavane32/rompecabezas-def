@@ -84,10 +84,34 @@ padding-left: 15%;
   background-color: rgba(122, 117, 64, 0.75);
 
 }
-
-#mensaje-ocultos .col-40{
+body #mensaje-ocultos {
+    font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
+    margin: 0;
+    display: none;
+}
+/*#mensaje-ocultos{
   display: none;
 }
+*/
+.resultado {
+    align-items: center;
+    bottom: 0;
+    color: white;
+    display: flex;
+    font-weight: bold;
+    font-size: 35px;
+    justify-content: center;
+    left: 0;
+    letter-spacing: 2px;
+    position: fixed;
+    right: 0;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+    top: 0;
+}
+#victoria.resultado {
+    background-color: #A7D46F;
+}
+
 @keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
