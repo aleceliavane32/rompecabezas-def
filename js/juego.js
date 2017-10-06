@@ -14,13 +14,36 @@ var posicionVacia = {
 
 // Esta función va a chequear si el Rompecabezas est&aacute; en la posición ganadora
 function chequearSiGano(){
+  var contadorFila = grilla.length;
+  var contadorColumna= grilla[0].length;
+
+  var valorActual= 0;
+  var ultiValorVisto= 0;
+
+  for (var fila = 0; fila < contadorFila; fila++) {
+    for (var columna = 0; columna < contadorColumna; columna++) {
+      valorActual= grilla[fila][columna];
+
+      if (valorActual > ultiValorVisto) {
+        return false;
+
+        ultiValorVisto = valorActual;
+      }
+    }
+    return true;
+  }
 }
-
-
 
 // la hacen los alumnos, pueden mostrar el cartel como prefieran. Pero es importante que usen
 // esta función
 function mostrarCartelGanador(){
+  /*if (chequearSiGano) {
+    alert("GANASTE");
+  }
+  */
+  if (chequearSiGano) {
+    alert(mensaje-ocultos);
+  }
 }
 
 // Intercambia posiciones grilla y en el DOM
@@ -67,50 +90,51 @@ function moverEnDireccion(direccion){
     // Completar
   }
 
-  // Se chequea si la nueva posición es válida, si lo es, se intercambia 
+  // Se chequea si la nueva posición es válida, si lo es, se intercambia
   if (posicionValida(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia)){
     intercambiarPosiciones(posicionVacia.fila, posicionVacia.columna,
-    nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
-    actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
+      nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
+      actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
+    }
+
   }
 
-}
 
 
+  // Extras, ya vienen dadas
 
-// Extras, ya vienen dadas
+  function mezclarPiezas(veces){
+    if(veces<=0){return;}
+    var direcciones = [40, 38, 39, 37];
+    var direccion = direcciones[Math.floor(Math.random()*direcciones.length)];
+    moverEnDireccion(direccion);
 
-function mezclarPiezas(veces){
-  if(veces<=0){return;}
-  var direcciones = [40, 38, 39, 37];
-  var direccion = direcciones[Math.floor(Math.random()*direcciones.length)];
-  moverEnDireccion(direccion);
+    setTimeout(function(){
+      mezclarPiezas(veces-1);
+    },100);
+  }
 
-  setTimeout(function(){
-    mezclarPiezas(veces-1);
-  },100);
-}
+  function capturarTeclas(){
+    document.body.onkeydown = (function(evento) {
+      if(evento.which == 40 || evento.which == 38 || evento.which == 39 || evento.which == 37){
+        moverEnDireccion(evento.which);
 
-function capturarTeclas(){
-  document.body.onkeydown = (function(evento) {
-    if(evento.which == 40 || evento.which == 38 || evento.which == 39 || evento.which == 37){
-      moverEnDireccion(evento.which);
+        var gano = chequearSiGano();
+        if(gano){
+          setTimeout(function(){
+            mostrarCartelGanador();
+          },500);
+        }
+        evento.preventDefault();
+      }
+    })
+  }
 
-      var gano = chequearSiGano();
-      if(gano){
-        setTimeout(function(){
-          mostrarCartelGanador();  
-        },500);
-      } 
-      evento.preventDefault();
-    }
-  })
-}
-
-function iniciar(){
-  mezclarPiezas(60);
-  capturarTeclas();
-}
+  function iniciar(){
+    mezclarPiezas(60);
+    capturarTeclas();
+  }
 
 
-iniciar();
+  iniciar();
+  mostrarCartelGanador();

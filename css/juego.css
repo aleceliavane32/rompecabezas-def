@@ -84,6 +84,10 @@ padding-left: 15%;
   background-color: rgba(122, 117, 64, 0.75);
 
 }
+
+#mensaje-ocultos .col-40{
+  display: none;
+}
 @keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
