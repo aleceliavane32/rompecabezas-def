@@ -37,10 +37,7 @@ function chequearSiGano(){
 // la hacen los alumnos, pueden mostrar el cartel como prefieran. Pero es importante que usen
 // esta función
 function mostrarCartelGanador(){
-  /*if (chequearSiGano) {
-    alert("GANASTE");
-  }
-  */
+
   if (chequearSiGano) {
     alert(mensaje-ocultos);
   }
@@ -48,17 +45,32 @@ function mostrarCartelGanador(){
 
 // Intercambia posiciones grilla y en el DOM
 function intercambiarPosiciones(fila1, columna1, fila2, columna2){
+var interCam1= grilla[fila1][columna1];
+var interCam2= grilla[fila2][columna2];
+
+var elementPieza1= document.gerElementByID('pieza'+pieza1);
+var elementPieza2=document.gerElementByID('pieza'+pieza2);
+
+var padre= elementPieza1.parentNode;
+
+var clonElement1= elementPieza1.cloneNode(true);
+var clonElement2= elementPieza2.cloneNode(true);
+
+padre.replaceChild(clonElement1, elementPieza2);
+padre.replaceChild(clonElement2, elementPieza1);
 
 }
 
 // Actualiza la posición de la pieza vacía
 function actualizarPosicionVacia(nuevaFila,nuevaColumna){
-
+posicionValida.fila = nuevaFila;
+posicionValida.columna= nuevaColumna;
 }
 
 
 // Para chequear si la posicón está dentro de la grilla.
 function posicionValida(fila, columna){
+return (fila >=0 && fila <= 2) && (columna >=0 && columna <=2);
 
 }
 
@@ -82,11 +94,16 @@ function moverEnDireccion(direccion){
   }
   // Intercambia pieza blanca con la pieza que está a su izq
   else if (direccion == 39) {
+    nuevaFillaPieza = posicionVacia.fila;
+    nuevaCollPieza = posicionVacia.columna-1;
     // Completar
 
   }
   // Intercambia pieza blanca con la pieza que está a su der
   else if (direccion == 37) {
+
+    nuevaFillaPieza = posicionVacia.fila;
+    nuevaCollPieza = posicionVacia.columna+1;
     // Completar
   }
 
@@ -94,12 +111,11 @@ function moverEnDireccion(direccion){
   if (posicionValida(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia)){
     intercambiarPosiciones(posicionVacia.fila, posicionVacia.columna,
       nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
-      actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
+      //actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
+      actualizarPosicionVacia(nuevaFillaPieza, nuevaCollPieza);
     }
 
   }
-
-
 
   // Extras, ya vienen dadas
 

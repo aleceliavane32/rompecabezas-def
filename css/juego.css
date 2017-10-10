@@ -38,11 +38,7 @@ padding-left: 15px;
   vertical-align: top;
 
 }
-#titulos{
-
-
-}
-h1 {
+.titulo {
   font-family: 'Playfair Display', serif;
   background-color: rgba(126, 140, 58, 0.86);
   color: #fff;
@@ -50,7 +46,7 @@ h1 {
   padding-left: 6%;
 }
 
-h2 {
+.subTitulo {
 font-family: 'Playfair Display', serif;
 color:#fff;
 padding-left: 15%;
@@ -89,10 +85,9 @@ body #mensaje-ocultos {
     margin: 0;
     display: none;
 }
-/*#mensaje-ocultos{
-  display: none;
+.mensajes-ocultos {
+    display: none;
 }
-*/
 .resultado {
     align-items: center;
     bottom: 0;
@@ -111,7 +106,14 @@ body #mensaje-ocultos {
 #victoria.resultado {
     background-color: #A7D46F;
 }
-
+#perdiste.resultado{
+  background-color: rgb(63, 204, 166);
+}
+#botonInicio{
+  float: right;
+  color: rgb(41, 149, 218);
+  border-bottom: 5px;
+}
 @keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
