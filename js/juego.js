@@ -13,6 +13,7 @@ var posicionVacia = {
 };
 
 // Esta función va a chequear si el Rompecabezas est&aacute; en la posición ganadora
+
 function chequearSiGano(){
   var contadorFila = grilla.length;
   var contadorColumna= grilla[0].length;
@@ -36,85 +37,93 @@ function chequearSiGano(){
 
 // la hacen los alumnos, pueden mostrar el cartel como prefieran. Pero es importante que usen
 // esta función
-function mostrarCartelGanador(){
 
-  if (chequearSiGano) {
+function mostrarCartelGanador(){
     alert(mensaje-ocultos);
-  }
 }
 
 // Intercambia posiciones grilla y en el DOM
+
 function intercambiarPosiciones(fila1, columna1, fila2, columna2){
-var interCam1= grilla[fila1][columna1];
-var interCam2= grilla[fila2][columna2];
+  var pieza1 = grilla[fila1][columna1];
+  var pieza2 = grilla[fila2][columna2];
 
-var elementPieza1= document.gerElementByID('pieza'+pieza1);
-var elementPieza2=document.gerElementByID('pieza'+pieza2);
+    grilla[fila1][columna1] = pieza2;
+    grilla[fila2][columna2] = pieza1;
 
-var padre= elementPieza1.parentNode;
+  var elementoPieza1 = document.getElementById('cull'+pieza1);
+  var elementoPieza2 = document.getElementById('cull'+pieza2);
 
-var clonElement1= elementPieza1.cloneNode(true);
-var clonElement2= elementPieza2.cloneNode(true);
+  var padre = elementoPieza1.parentNode;
 
-padre.replaceChild(clonElement1, elementPieza2);
-padre.replaceChild(clonElement2, elementPieza1);
+  var clonElemento1 = elementoPieza1.cloneNode(true);
+  var clonElemento2 = elementoPieza2.cloneNode(true);
+
+  padre.replaceChild(clonElemento1, elementoPieza2);
+  padre.replaceChild(clonElemento2, elementoPieza1);
 
 }
 
 // Actualiza la posición de la pieza vacía
+
 function actualizarPosicionVacia(nuevaFila,nuevaColumna){
-posicionValida.fila = nuevaFila;
-posicionValida.columna= nuevaColumna;
+  posicionValida.fila = nuevaFila;
+  posicionValida.columna= nuevaColumna;
 }
 
 
 // Para chequear si la posicón está dentro de la grilla.
+
 function posicionValida(fila, columna){
-return (fila >=0 && fila <= 2) && (columna >=0 && columna <=2);
+  return (fila >=0 && fila <= 2) && (columna >=0 && columna <=2);
 
 }
-
 // Movimiento de fichas, en este caso la que se mueve es la blanca intercambiando
 // su posición con otro elemento
-function moverEnDireccion(direccion){
 
+function moverEnDireccion(direccion){
   var nuevaFilaPiezaVacia;
   var nuevaColumnaPiezaVacia;
 
   // Intercambia pieza blanca con la pieza que está arriba suyo
+
   if(direccion == 40){
     nuevaFilaPiezaVacia = posicionVacia.fila-1;
     nuevaColumnaPiezaVacia = posicionVacia.columna;
   }
+
   // Intercambia pieza blanca con la pieza que está abajo suyo
+
   else if (direccion == 38) {
     nuevaFilaPiezaVacia = posicionVacia.fila+1;
     nuevaColumnaPiezaVacia = posicionVacia.columna;
 
   }
+
   // Intercambia pieza blanca con la pieza que está a su izq
+
   else if (direccion == 39) {
     nuevaFillaPieza = posicionVacia.fila;
     nuevaCollPieza = posicionVacia.columna-1;
-    // Completar
 
   }
-  // Intercambia pieza blanca con la pieza que está a su der
-  else if (direccion == 37) {
 
+  // Intercambia pieza blanca con la pieza que está a su der
+
+  else if (direccion == 37) {
     nuevaFillaPieza = posicionVacia.fila;
     nuevaCollPieza = posicionVacia.columna+1;
-    // Completar
+
   }
 
   // Se chequea si la nueva posición es válida, si lo es, se intercambia
+
   if (posicionValida(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia)){
     intercambiarPosiciones(posicionVacia.fila, posicionVacia.columna,
       nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
-      //actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
-      actualizarPosicionVacia(nuevaFillaPieza, nuevaCollPieza);
-    }
+      actualizarPosicionVacia(nuevaFilaPiezaVacia, nuevaColumnaPiezaVacia);
 
+    }
   }
 
   // Extras, ya vienen dadas
@@ -146,6 +155,7 @@ function moverEnDireccion(direccion){
     })
   }
 
+
   function iniciar(){
     mezclarPiezas(60);
     capturarTeclas();
@@ -153,4 +163,4 @@ function moverEnDireccion(direccion){
 
 
   iniciar();
-  mostrarCartelGanador();
+  // mostrarCartelGanador();

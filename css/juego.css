@@ -27,7 +27,7 @@ li::before {
   background-color: rgba(157, 162, 137, 0.54);
 
 }
-#instrucciones{
+#instrucciones li{
 color: #fff;
 padding-left: 15px;
 
@@ -55,30 +55,28 @@ padding-left: 15%;
 
 .col-60{
  background-color: rgba(126, 140, 58, 0.79);
- padding-left: 1.5%;
+ /*padding-left: 1.5%;
  padding-right: 1.5%;
  padding-top: 1.5%;
- padding-bottom: 1.5%;
+ padding-bottom: 1.5%;*/
+
 }
 
 #juego div {
   text-align: center;
   animation: fadein 2s;
 }
-
 .piezasJuego{
-  padding-right: auto;
-  padding-left: auto;
-  padding-top: auto;
-  padding-bottom: auto;
-  margin: 1px 5px;
+  float:left;
+}
+.piezasJuego img{
+  /*margin: 1px 5px;*/
   width: 203px;
   height: 203px;
 
 }
 .pieDelJuego{
   background-color: rgba(122, 117, 64, 0.75);
-
 }
 body #mensaje-ocultos {
     font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
@@ -105,14 +103,6 @@ body #mensaje-ocultos {
 }
 #victoria.resultado {
     background-color: #A7D46F;
-}
-#perdiste.resultado{
-  background-color: rgb(63, 204, 166);
-}
-#botonInicio{
-  float: right;
-  color: rgb(41, 149, 218);
-  border-bottom: 5px;
 }
 @keyframes fadein {
   from { opacity: 0; }
