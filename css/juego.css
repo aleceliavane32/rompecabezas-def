@@ -6,39 +6,41 @@ body {
   width: 940px;
   margin: 5% auto;
   min-height: 100%;
-  background-image: url(../images/adventure.jpg);
+  background-image: url(../images/fondo1.jpg);
 }
+
 ul {
   padding-left: 0;
   list-style: none;
 }
+
 li {
   padding: 5px 0;
 }
+
 li::before {
   content: "• ";
   color: #EC6778;
 }
 
 .col-40 {
-  background: #FFF;
   padding: 30px;
   color: #000;
   background-color: rgba(157, 162, 137, 0.54);
-
 }
+
 #instrucciones li{
-color: #fff;
-padding-left: 15px;
-
+  color: #fff;
+  padding-left: 15px;
 }
+
 .col-40, .col-60 {
   display: table-cell;
   margin: 0;
   vertical-align: top;
-
 }
-.titulo {
+
+h1 {
   font-family: 'Playfair Display', serif;
   background-color: rgba(126, 140, 58, 0.86);
   color: #fff;
@@ -46,64 +48,39 @@ padding-left: 15px;
   padding-left: 6%;
 }
 
-.subTitulo {
-font-family: 'Playfair Display', serif;
-color:#fff;
-padding-left: 15%;
-
+h2 {
+  font-family: 'Playfair Display', serif;
+  color:#fff;
+  padding-left: 15%;
 }
 
 .col-60{
- background-color: rgba(126, 140, 58, 0.79);
- /*padding-left: 1.5%;
- padding-right: 1.5%;
- padding-top: 1.5%;
- padding-bottom: 1.5%;*/
-
+  background-color: rgba(126, 140, 58, 0.79);
 }
 
 #juego div {
   text-align: center;
   animation: fadein 2s;
 }
+
 .piezasJuego{
   float:left;
 }
+
 .piezasJuego img{
-  /*margin: 1px 5px;*/
-  width: 203px;
-  height: 203px;
+  /*  margin: 1px 5px;*/
+  width: 213px;
+  height: 213px;
+}
+
+.pieDelJuego{
+
+  background-color: rgba(122, 117, 64, 0.75);
+  color: #fff;
+  text-align: center;
 
 }
-.pieDelJuego{
-  background-color: rgba(122, 117, 64, 0.75);
-}
-body #mensaje-ocultos {
-    font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
-    margin: 0;
-    display: none;
-}
-.mensajes-ocultos {
-    display: none;
-}
-.resultado {
-    align-items: center;
-    bottom: 0;
-    color: white;
-    display: flex;
-    font-weight: bold;
-    font-size: 35px;
-    justify-content: center;
-    left: 0;
-    letter-spacing: 2px;
-    position: fixed;
-    right: 0;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
-    top: 0;
-}
-#victoria.resultado {
-    background-color: #A7D46F;
-}
+
 @keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
