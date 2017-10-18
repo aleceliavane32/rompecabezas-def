@@ -1,3 +1,49 @@
+#footer {
+  padding: 10px 0;
+  background-color: #2A363B;
+  background-color: rgba(29, 63, 120, 0.84);
+  color: #fff;
+  text-align: center;
+}
+#juego {
+  width: 600px;
+  height: 600px;
+  margin: 0;
+}
+.pieza {
+  width: 33.333%;
+  height: 33.333%;
+  float: left;
+}
+.pieza img{
+  border: solid 1px #007D75;
+  width: 100%;
+}
+#titulo h1 {
+  font-family: 'Playfair Display', serif;
+  background-color: rgba(71, 193, 178, 0.87);
+  color: #fff;
+  width: 102%;
+  padding-left: 6%;
+}
+#instrucciones h1 {
+  font-size: 20px;
+  color: #E84A5F;
+}
+.col-40, .col-60 {
+  display: table-cell;
+  margin: 0;
+  vertical-align: top;
+}
+.col-40 {
+  background: rgb(35, 111, 226);
+  padding: 30px;
+  color: #fff;
+}
+
+.col-60{
+  background-color:rgba(56, 118, 223, 0.72);
+}
 
 
 /*Código armado por La Foca Loca S.A. No modificar*/
@@ -7,18 +53,6 @@ body {
   margin: 5% auto;
   min-height: 100%;
   background-image: url(../images/fondo1.jpg);
-}
-h1 {
-  font-family: 'Playfair Display', serif;
-  background-color: rgba(71, 193, 178, 0.87);
-  color: #fff;
-  width: 102%;
-  padding-left: 6%;
-}
-h2 {
-  font-family: 'Playfair Display', serif;
-  color:#fff;
-  padding-left: 15%;
 }
 ul {
   padding-left: 0;
@@ -31,44 +65,11 @@ li::before {
   content: "• ";
   color: #EC6778;
 }
-#instrucciones li{
-  color: #fff;
-  padding-left: 15px;
-}
-.col-40, .col-60 {
-  display: table-cell;
-  margin: 0;
-  vertical-align: top;
-}
-.col-40 {
-  background: rgb(35, 111, 226);
-  padding: 30px;
-  color: #fff;
-}
-.col-60{
-  background-color:rgba(56, 118, 223, 0.72);
-  margin: 1.5%;
-  padding: 1.5%;
-}
-.piezasJuego{
-  float:left;
-}
-.piezasJuego img{
-  margin: 1px 5px;
-  width: 180px;
-  height: 180px;
-
-}
 
 #juego div {
+
   text-align: center;
   animation: fadein 2s;
-}
-
-.pieDelJuego{
-  background-color: rgba(29, 63, 120, 0.84);
-  color: #fff;
-  text-align: center;
 }
 
 @keyframes fadein {
