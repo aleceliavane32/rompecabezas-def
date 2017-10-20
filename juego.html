@@ -1,43 +1,55 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>BMO Arcade</title>
-    <link rel="stylesheet" href="css/juego.css">
+<head>
+  <meta charset="utf-8">
+  <title>BMO Arcade</title>
+  <link rel="stylesheet" href="css/juego.css">
 
-  </head>
-  <body>
-    <div class="col-40">
-      <div id="titulo">
-        <h1>Rompecabezas</h1>
-      </div>
+</head>
+<body id="base">
+  <!-- <embed src"Princess-CM.mg3"> -->
+  <audio src="Princess-CM.mg3" controls autoplay loop>
 
-      <div id="instrucciones">
-        <h1>Instrucciones</h1>
-        <ul>
-          <li>Mover las piezas presionando las teclas de flechas</li>
-          <li>Encontrar el orden correcto de las piezas</li>
-        </ul>
-      </div>
-    </div>
-    <div class="col-60">
-      <div id="juego">
-        <div class="pieza" id="cull1"> <img src="images/Moon1.jpg" alt="pieza1"></div>
-        <div class="pieza" id="cull2"> <img src="images/Moon2.jpg" alt="pieza2"></div>
-        <div class="pieza" id="cull3"> <img src="images/Moon3.jpg" alt="pieza3"></div>
-        <div class="pieza" id="cull4"> <img src="images/Moon4.jpg" alt="pieza4"></div>
-        <div class="pieza" id="cull5"> <img src="images/Moon5.jpg" alt="pieza5"></div>
-        <div class="pieza" id="cull6"> <img src="images/Moon6.jpg" alt="pieza6"></div>
-        <div class="pieza" id="cull7"> <img src="images/Moon7.jpg" alt="pieza7"></div>
-        <div class="pieza" id="cull8"> <img src="images/Moon8.jpg" alt="pieza8"></div>
-        <div class="pieza" id="cull9"></div>
-      </div>
-    </div>
-    <div id="footer">
-      Alejandra Bravo.
+  </audio>
+  <div class="col-40">
+    <div id="titulo">
+      <h1>Rompecabezas</h1>
     </div>
 
-    <script src="js/juego.js"></script>
+    <div id="instrucciones">
+      <h1>Instrucciones</h1>
+      <ul>
+        <li>Mover las piezas presionando las teclas de flechas</li>
+        <li>Encontrar el orden correcto de las piezas</li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-60">
+    <div id="juego">
+      <div class="pieza" id="cull1"> <img src="images/Princess1.jpg" alt="pieza1"></div>
+      <div class="pieza" id="cull2"> <img src="images/Princess2.jpg" alt="pieza2"></div>
+      <div class="pieza" id="cull3"> <img src="images/Princess3.jpg" alt="pieza3"></div>
+      <div class="pieza" id="cull4"> <img src="images/Princess4.jpg" alt="pieza4"></div>
+      <div class="pieza" id="cull5"> <img src="images/Princess5.jpg" alt="pieza5"></div>
+      <div class="pieza" id="cull6"> <img src="images/Princess6.jpg" alt="pieza6"></div>
+      <div class="pieza" id="cull7"> <img src="images/Princess7.jpg" alt="pieza7"></div>
+      <div class="pieza" id="cull8"> <img src="images/Princess8.jpg" alt="pieza8"></div>
+      <div class="pieza" id="cull9"> <img src="images/Princess9.jpg" alt="pieza9"></div>
+    </div>
+  </div>
+  <div id="footer">
+    Alejandra Bravo.
+  </div>
 
-  </body>
+  <script src="js/juego.js"></script>
+
+</body>
+<div id="mensajes-ocultos">
+  <div >
+    <div id="victoria" class="resultado">
+      <h1>¡GANASTE!🎉</h1>
+      <!-- la idea de este cartel fue del proyecto piedra, papel y tijera -->
+    </div>
+  </div >
+</div>
 </html>

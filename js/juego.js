@@ -12,7 +12,7 @@ var posicionVacia = {
   columna:2
 };
 
-// La hacen los alumnos: Existen muchas posibilidades, la planteada es chequear el orden
+// La hacen los alumnos: Existen muchas posibilidades,la planteada es chequear el orden
 function chequearSiGano(){
   return grillaOrdenada();
 }
@@ -20,11 +20,12 @@ function chequearSiGano(){
 function grillaOrdenada(){
   // guardo la cantidad de filas de la grilla en una variable
   var contadorFila = grilla.length;
-  var cantidadColumnas = grilla[0].length;
+  var contadorColumna = grilla[0].length;
 
   // En esta variable vamos a guardar el ultimo valor visto en la grilla
   var ultimoValorVisto = 0;
   var valorActual = 0;
+
   // recorro cada fila columna por columna chequeando el orden de sus elementos
   for(var fila=0; fila < contadorFila; fila++){
     for(var columna=0; columna < contadorColumna; columna++){
@@ -44,7 +45,9 @@ function grillaOrdenada(){
 // la hacen los alumnos, pueden mostrar el cartel como prefieran. Pero es importante que usen
 // esta función
 function mostrarCartelGanador(){
-  alert("juego ganado!");
+  // la idea de este cartel es del proyecto piedra, papel y tijera.
+var cartel=document.getElementById('mensajes-ocultos');
+cartel.style.display="block";
 }
 
 // Idealmente la modificación del DOM y el cambio en la Grilla estarían
@@ -84,7 +87,7 @@ function posicionValida(fila, columna){
 }
 
 // Movimiento de fichas, en este caso la que se mueve es
-// la vacia intercambiando su posición con otro elem
+// la vacia intercambiando su posición con otro elemeneto
 // Podría ser diferente el movimiento y seguir siendo correcto.
 function moverEnDireccion(direccion){
 
@@ -118,44 +121,44 @@ function moverEnDireccion(direccion){
   // Hay que chequear los limites, si no se puede mover, no se mueve.
   if (posicionValida(nuevaFilaPiezaAzul, nuevaColumnaPiezaAzul)){
     intercambiarPosiciones(posicionVacia.fila, posicionVacia.columna,
-    nuevaFilaPiezaAzul, nuevaColumnaPiezaAzul);
-    actualizarposicionVacia(nuevaFilaPiezaAzul, nuevaColumnaPiezaAzul);
+      nuevaFilaPiezaAzul, nuevaColumnaPiezaAzul);
+      actualizarposicionVacia(nuevaFilaPiezaAzul, nuevaColumnaPiezaAzul);
+    }
+
   }
 
-}
+
+  // Extras, ya vienen dadas
+
+  function mezclarPiezas(veces){
+    if(veces<=0){return;}
+    var direcciones = [40, 38, 39, 37];
+    var direccion = direcciones[Math.floor(Math.random()*direcciones.length)];
+    moverEnDireccion(direccion);
+
+    setTimeout(function(){
+      mezclarPiezas(veces-1);
+    },100);
+  }
+
+  function capturarTeclas(){
+    document.body.onkeydown = (function(evento) {
+      moverEnDireccion(evento.which);
+
+      var gano = chequearSiGano();
+      if(gano){
+        setTimeout(function(){
+          mostrarCartelGanador();
+        },500);
+      }
+      evento.preventDefault();
+    })
+  }
+
+  function iniciar(){
+    mezclarPiezas(60);
+    capturarTeclas();
+  }
 
 
-// Extras, ya vienen dadas
-
-function mezclarPiezas(veces){
-  if(veces<=0){return;}
-  var direcciones = [40, 38, 39, 37];
-  var direccion = direcciones[Math.floor(Math.random()*direcciones.length)];
-  moverEnDireccion(direccion);
-
-  setTimeout(function(){
-    mezclarPiezas(veces-1);
-  },100);
-}
-
-function capturarTeclas(){
-  document.body.onkeydown = (function(evento) {
-    moverEnDireccion(evento.which);
-
-    var gano = chequearSiGano();
-    if(gano){
-      setTimeout(function(){
-        mostrarCartelGanador();
-      },500);
-    }
-    evento.preventDefault();
-  })
-}
-
-function iniciar(){
-  mezclarPiezas(60);
-  capturarTeclas();
-}
-
-
-iniciar();
+  iniciar();
