@@ -44,26 +44,26 @@
 .col-60{
   background-color:rgba(56, 118, 223, 0.72);
 }
-/*es para la id de mensajes-ocultos*/
+/*Es para la id de mensajes-ocultos*/
 .resultado {
-    align-items: center;
-    bottom: 0;
-    color: white;
-    display: flex;
-    font-weight: bold;
-    font-size: 35px;
-    justify-content: center;
-    left: 0;
-    letter-spacing: 2px;
-    position: fixed;
-    right: 0;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
-    top: 0;
+  align-items: center;
+  bottom: 0;
+  color: white;
+  display: flex;
+  font-weight: bold;
+  font-size: 35px;
+  justify-content: center;
+  left: 0;
+  letter-spacing: 2px;
+  position: fixed;
+  right: 0;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.25);
+  top: 0;
 }
- #mensajes-ocultos  {
-    font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
-    margin: 0;
-    display: none;
+#mensajes-ocultos  {
+  font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir, 'helvetica neue', helvetica, ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
+  margin: 0;
+  display: none;
 }
 
 /*Código armado por La Foca Loca S.A. No modificar*/

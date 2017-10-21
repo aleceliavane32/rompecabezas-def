@@ -46,8 +46,8 @@ function grillaOrdenada(){
 // esta función
 function mostrarCartelGanador(){
   // la idea de este cartel es del proyecto piedra, papel y tijera.
-var cartel=document.getElementById('mensajes-ocultos');
-cartel.style.display="block";
+  var cartel=document.getElementById('mensajes-ocultos');
+  cartel.style.display="block";
 }
 
 // Idealmente la modificación del DOM y el cambio en la Grilla estarían
