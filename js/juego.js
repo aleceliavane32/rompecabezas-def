@@ -29,7 +29,7 @@ function grillaOrdenada(){
   // recorro cada fila columna por columna chequeando el orden de sus elementos
   for(var fila=0; fila < contadorFila; fila++){
     for(var columna=0; columna < contadorColumna; columna++){
-      valorActual = grilla[fila][columna]
+      valorActual = grilla[fila][columna];
       // si el valorActual es menor al ultimoValorVisto entonces no est&aacute; ordenada
       if(valorActual < ultimoValorVisto) return false;
 

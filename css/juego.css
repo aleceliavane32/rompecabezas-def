@@ -1,10 +1,4 @@
-#footer {
-  padding: 10px 0;
-  background-color: #2A363B;
-  background-color: rgba(29, 63, 120, 0.84);
-  color: #fff;
-  text-align: center;
-}
+
 #juego {
   width: 600px;
   height: 600px;
@@ -43,6 +37,13 @@
 
 .col-60{
   background-color:rgba(56, 118, 223, 0.72);
+}
+#footer {
+  padding: 10px 0;
+  background-color: #2A363B;
+  background-color: rgba(29, 63, 120, 0.84);
+  color: #fff;
+  text-align: center;
 }
 /*Es para la id de mensajes-ocultos*/
 .resultado {
