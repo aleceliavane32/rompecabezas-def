@@ -1,164 +1,313 @@
 
-// representación del tablero del juego
-var grilla = [
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9]
-];
+var Juego = {   
+  cantidadDePiezasPorLado: null,
+  anchoDeRompecabezas: 0,
+  altoDeRompecabezas: 0,
+  images: null,
+  piezas: [],
+  contexto: null,
+  filaPosicionVacia: null,
+  columnaPosicionVacia: null,
+  contadorDeMovimientos: null,
 
-// Para ir guardando la posición vacia del rompecabezas
-var posicionVacia = {
-  fila:2,
-  columna:2
-};
 
-// La hacen los alumnos: Existen muchas posibilidades,la planteada es chequear el orden
-function chequearSiGano(){
-  return grillaOrdenada();
-}
+  anchoPiezas:0,
+  altoPiezas:0,
+  grilla: [],
+  movimientosTotales: null,
 
-function grillaOrdenada(){
-  // guardo la cantidad de filas de la grilla en una variable
-  var contadorFila = grilla.length;
-  var contadorColumna = grilla[0].length;
+  crearGrilla: function() {
+  for (var i = 0; i < this.cantidadDePiezasPorLado; i++) {
+    var fila = []
+    for (var j = 0; j < this.cantidadDePiezasPorLado; j++) {
+      fila.push((i * this.cantidadDePiezasPorLado) + j);
+    }
+    this.grilla.push(fila);
+  }
+},
 
-  // En esta variable vamos a guardar el ultimo valor visto en la grilla
+  chequearSiGano: function() {
+  return this.grillaOrdenada();
+},
+
+  grillaOrdenada: function() {
+
+  var contadorFila = this.grilla.length;
+  var contadorColumna = this.grilla[0].length;
+
   var ultimoValorVisto = 0;
   var valorActual = 0;
 
-  // recorro cada fila columna por columna chequeando el orden de sus elementos
   for(var fila=0; fila < contadorFila; fila++){
     for(var columna=0; columna < contadorColumna; columna++){
-      valorActual = grilla[fila][columna];
-      // si el valorActual es menor al ultimoValorVisto entonces no est&aacute; ordenada
+      valorActual = this.grilla[fila][columna];
       if(valorActual < ultimoValorVisto) return false;
 
-      // actualizamos el valor del ultimoValorVisto
       ultimoValorVisto = valorActual;
     }
   }
-  // si llegamos hasta ac&aacute; quiere decir que est&aacute; ordenada
+
   return true;
-}
+},
 
 
-// la hacen los alumnos, pueden mostrar el cartel como prefieran. Pero es importante que usen
-// esta función
-function mostrarCartelGanador(){
-  // la idea de este cartel es del proyecto piedra, papel y tijera.
+  mostrarCartelGanador: function() {
+  var self = this;
+  $(document).ready(function() {
+    swal({
+        title: "¡Ganaste!",
+        text: "Volver a jugar",
+        type: "success"
+      },
+
+      function() {
+        self.iniciar(self.movimientosTotales);
+      })
+  });
   var cartel=document.getElementById('mensajes-ocultos');
   cartel.style.display="block";
-}
 
-// Idealmente la modificación del DOM y el cambio en la Grilla estarían
-// desacoplados. Por el momento no queremos generar esta complicación
-// así que aprecen juntos
-function intercambiarPosiciones(fila1, columna1, fila2, columna2){
-  // Intercambio posiciones en la grilla
-  var pieza1 = grilla[fila1][columna1];
-  var pieza2 = grilla[fila2][columna2];
-  grilla[fila1][columna1] = pieza2;
-  grilla[fila2][columna2] = pieza1;
-
-  // Intercambio posiciones en el DOM
-  var elementoPieza1 = document.getElementById('cull'+pieza1);
-  var elementoPieza2 = document.getElementById('cull'+pieza2);
-
-  var padre = elementoPieza1.parentNode;
-
-  var clonElemento1 = elementoPieza1.cloneNode(true);
-  var clonElemento2 = elementoPieza2.cloneNode(true);
-
-  padre.replaceChild(clonElemento1, elementoPieza2);
-  padre.replaceChild(clonElemento2, elementoPieza1);
-}
+},
 
 
+  mostrarCartelPerdedor: function() {
+  var self = this;
+  $(document).ready(function() {
+    sweetAlert({
+      title: "Perdiste :(",
+      text: "Volver a intentarlo",
+      type: "error"
+    },
 
-function actualizarposicionVacia(nuevaFila,nuevaColumna){
-  posicionVacia.fila = nuevaFila;
-  posicionVacia.columna = nuevaColumna;
-}
+    function() {
+      self.iniciar(self.movimientosTotales);
+    })
+  });
+},
 
-// Esta buena para entender como funcionan los booleanos.
-function posicionValida(fila, columna){
-  return (fila >= 0 && fila <= 2) && (columna >= 0 && columna <= 2);
+  intercambiarPosiciones: function(fila1, columna1, fila2, columna2) {
 
-}
+  var posicionGrilla1 = this.grilla[fila1][columna1];
+  var posicionGrilla2 = this.grilla[fila2][columna2];
+  this.grilla[fila1][columna1] = posicionGrilla2;
+  this.grilla[fila2][columna2] = posicionGrilla1;
 
-// Movimiento de fichas, en este caso la que se mueve es
-// la vacia intercambiando su posición con otro elemeneto
-// Podría ser diferente el movimiento y seguir siendo correcto.
-function moverEnDireccion(direccion){
+  var pieza1 = this.piezas[posicionGrilla1];
+  var pieza2 = this.piezas[posicionGrilla2];
+
+  var sx1 = pieza1.sx
+  var sy1 = pieza1.sy
+  var sx2 = pieza2.sx
+  var sy2 = pieza2.sy
+
+
+  pieza1.sx = sx2
+  pieza1.sy = sy2
+
+  pieza2.sx = sx1
+  pieza2.sy = sy1
+
+
+  this.piezas[posicionGrilla1] = pieza1;
+  this.piezas[posicionGrilla2] = pieza2;
+  this.contexto.drawImage(this.imagen, pieza2.x, pieza2.y, this.anchoPiezas, this.altoPiezas, pieza2.sx, pieza2.sy, this.anchoPiezas, this.altoPiezas);
+  this.contexto.fillStyle = "white";
+  this.contexto.fillRect(pieza1.sx, pieza1.sy, this.anchoPiezas, this.altoPiezas);
+},
+
+
+actualizarPosicionVacia: function(nuevaFila, nuevaColumna) {
+  this.filaPosicionVacia = nuevaFila;
+  this.columnaPosicionVacia = nuevaColumna;
+},
+
+
+
+  posicionValida: function(fila, columna) {
+  return (fila >= 0 && fila < this.cantidadDePiezasPorLado) && (columna >= 0 && columna < this.cantidadDePiezasPorLado);
+},
+
+
+  moverEnDireccion: function(direccion) {
 
   var nuevaFilaPiezaAzul;
   var nuevaColumnaPiezaAzul;
 
 
-  // Intercambia pieza vacía con la pieza que está arriba
   if(direccion == 40){
-    nuevaFilaPiezaAzul = posicionVacia.fila-1;
-    nuevaColumnaPiezaAzul = posicionVacia.columna;
+    nuevaFilaPiezaAzul = this.filaPosicionVacia -1;
+    nuevaColumnaPiezaAzul = this.columnaPosicionVacia;
   }
-  // Intercambia pieza vacía con la pieza que está abajo
   else if (direccion == 38) {
-    nuevaFilaPiezaAzul = posicionVacia.fila+1;
-    nuevaColumnaPiezaAzul = posicionVacia.columna;
+    nuevaFilaPiezaAzul = this.filaPosicionVacia +1;
+    nuevaColumnaPiezaAzul = this.columnaPosicionVacia;
 
   }
-  // Intercambia pieza vacía con la pieza que está a su izquierda
   else if (direccion == 39) {
-    nuevaFilaPiezaAzul = posicionVacia.fila;
-    nuevaColumnaPiezaAzul = posicionVacia.columna-1;
+    nuevaFilaPiezaAzul = this.filaPosicionVacia;
+    nuevaColumnaPiezaAzul = this.columnaPosicionVacia -1;
 
   }
-  // Intercambia pieza vacía con la pieza que está a su derecha
   else if (direccion == 37) {
-    nuevaFilaPiezaAzul = posicionVacia.fila;
-    nuevaColumnaPiezaAzul = posicionVacia.columna+1;
+    nuevaFilaPiezaAzul = this.filaPosicionVacia;
+    nuevaColumnaPiezaAzul = this.columnaPosicionVacia +1;
   }
 
-  // Hay que chequear los limites, si no se puede mover, no se mueve.
-  if (posicionValida(nuevaFilaPiezaAzul, nuevaColumnaPiezaAzul)){
-    intercambiarPosiciones(posicionVacia.fila, posicionVacia.columna,
+  if (this.posicionValida(nuevaFilaPiezaAzul, nuevaColumnaPiezaAzul)){
+    this.intercambiarPosiciones(this.filaPosicionVacia, this.columnaPosicionVacia,
       nuevaFilaPiezaAzul, nuevaColumnaPiezaAzul);
-      actualizarposicionVacia(nuevaFilaPiezaAzul, nuevaColumnaPiezaAzul);
+
+    this.actualizarPosicionVacia(nuevaFilaPiezaAzul, nuevaColumnaPiezaAzul);
     }
 
-  }
+  },
 
-
-  // Extras, ya vienen dadas
-
-  function mezclarPiezas(veces){
-    if(veces<=0){return;}
+  mezclarPiezas: function(veces) {
+    var that = this;
+    if (veces <= 0){
+      that.capturarTeclas();
+      return;
+    }
     var direcciones = [40, 38, 39, 37];
     var direccion = direcciones[Math.floor(Math.random()*direcciones.length)];
-    moverEnDireccion(direccion);
-
+    this.moverEnDireccion(direccion);
     setTimeout(function(){
-      mezclarPiezas(veces-1);
-    },100);
-  }
+      that.mezclarPiezas(veces-1);
+    },1);
+  },
 
-  function capturarTeclas(){
+  capturarTeclas: function() {
+    var that = this;
     document.body.onkeydown = (function(evento) {
-      moverEnDireccion(evento.which);
-
-      var gano = chequearSiGano();
-      if(gano){
-        setTimeout(function(){
-          mostrarCartelGanador();
-        },500);
+      if (evento.which == 40 || evento.which == 38 || evento.which == 39 || evento.which == 37) {
+        that.moverEnDireccion(evento.which);
+        that.restarMovimientoYverSiGano();
       }
-      evento.preventDefault();
-    })
+    });
+  },
+
+  capturarMouse: function(event) {
+    event = event || window.event;
+      x = event.offsetX,
+      y = event.offsetY;
+
+    var nuevaFilaPiezaAzul;
+    var nuevaColumnaPiezaAzul;
+    var cambioAlgo = false;
+    if (y > this.filaPosicionVacia * this.altoPiezas && y < (this.filaPosicionVacia * this.altoPiezas + this.altoPiezas)) {
+      if (x > (this.columnaPosicionVacia * this.anchoPiezas - this.anchoPiezas) && x < this.columnaPosicionVacia * this.anchoPiezas) {
+        this.moverEnDireccion(39);
+        cambioAlgo = true;
+      } else if (x > (this.columnaPosicionVacia * this.anchoPiezas + this.anchoPiezas) && x < (this.columnaPosicionVacia * this.anchoPiezas + 2 * this.anchoPiezas)) {
+        this.moverEnDireccion(37);
+        cambioAlgo = true;
+      }
+    }
+    if (x > this.columnaPosicionVacia * this.anchoPiezas && x < (this.columnaPosicionVacia * this.anchoPiezas + this.anchoPiezas)) {
+      if (y > this.filaPosicionVacia * this.anchoPiezas - this.anchoPiezas && y < this.filaPosicionVacia * this.anchoPiezas) {
+        this.moverEnDireccion(40);
+        cambioAlgo = true;
+      } else if (y > (this.filaPosicionVacia * this.anchoPiezas + this.anchoPiezas) && y < (this.filaPosicionVacia * this.anchoPiezas + 2 * this.anchoPiezas)) {
+        this.moverEnDireccion(38);
+        cambioAlgo = true;
+      }
+    }
+
+
+    if (cambioAlgo) {
+      this.restarMovimientoYverSiGano();
+    }
+  },
+
+  restarMovimientoYverSiGano: function() {
+    this.contadorDeMovimientos--;
+    document.getElementById("contadorDeMovimientos").innerHTML = this.contadorDeMovimientos;
+    if (this.contadorDeMovimientos == 0) {
+      this.mostrarCartelPerdedor();
+    }
+    var gano = this.chequearSiGano();
+    var that = this;
+    if (gano) {
+      setTimeout(function() {
+        that.mostrarCartelGanador();
+      }, 500);
+    }
+  },
+
+
+  crearPieza: function(xPos, yPos) {
+    var pieza = {};
+    pieza.x = xPos;
+    pieza.y = yPos;
+    pieza.sx = xPos;
+    pieza.sy = yPos;
+    return pieza;
+  },
+
+  construirPiezas: function() {
+    var i;
+    var pieza;
+    var xPos = 0;
+    var yPos = 0;
+    for (i = 0; i < this.cantidadDePiezasPorLado * this.cantidadDePiezasPorLado; i++) {
+      var pieza = this.crearPieza(xPos, yPos);
+      this.piezas.push(pieza);
+      xPos += this.anchoPiezas;
+      if (xPos >= this.anchoDeRompecabezas) {
+        xPos = 0;
+        yPos += this.altoPiezas;
+      }
+    }
+    this.contexto.fillStyle = "white";
+    this.contexto.fillRect(this.piezas[this.filaPosicionVacia * this.cantidadDePiezasPorLado + this.columnaPosicionVacia].sx, this.piezas[this.filaPosicionVacia * this.cantidadDePiezasPorLado + this.columnaPosicionVacia].sy, this.anchoPiezas, this.altoPiezas)
+  },
+
+  cargarImagen: function(e) {
+    this.anchoPiezas = Math.floor(600 / this.cantidadDePiezasPorLado);
+    this.altoPiezas = Math.floor(600 / this.cantidadDePiezasPorLado);
+    this.anchoDeRompecabezas = this.anchoPiezas * this.cantidadDePiezasPorLado;
+    this.altoDeRompecabezas = this.altoPiezas * this.cantidadDePiezasPorLado;
+    this.configurarCanvas();
+  },
+
+
+  configurarCanvas: function() {
+    var canvas = document.getElementById('canvas');
+    this.contexto = canvas.getContext('2d');
+    canvas.width = this.anchoDeRompecabezas;
+    canvas.height = this.altoDeRompecabezas;
+    this.contexto.drawImage(this.imagen, 0, 0, this.anchoDeRompecabezas, this.altoDeRompecabezas, 0, 0, this.anchoDeRompecabezas, this.altoDeRompecabezas);
+  },
+
+
+  iniciarImagen: function(callback) {
+    this.imagen = new Image();
+    var self = this;
+    this.imagen.addEventListener('load', function() {
+      self.cargarImagen.call(self);
+      callback();
+    }, false);
+    this.imagen.src = "images/princesa.jpg";
+  },
+
+
+  iniciar: function(cantMovimientos) {
+
+    this.movimientosTotales = cantMovimientos;
+    this.contadorDeMovimientos = cantMovimientos;
+    this.piezas = [];
+    this.grilla = [];
+    document.getElementById("contadorDeMovimientos").innerHTML = this.contadorDeMovimientos;
+    this.cantidadDePiezasPorLado = document.getElementById("cantidadPiezasPorLado").value;
+    var self = this;
+    this.crearGrilla();
+    this.filaPosicionVacia = this.cantidadDePiezasPorLado - 1;
+    this.columnaPosicionVacia = this.cantidadDePiezasPorLado - 1;
+    this.iniciarImagen(function() {
+      self.construirPiezas();
+      var cantidadDeMezclas = Math.max(Math.pow(self.cantidadDePiezasPorLado, 3), 100);
+      self.mezclarPiezas(cantidadDeMezclas);
+    });
   }
 
-  function iniciar(){
-    mezclarPiezas(60);
-    capturarTeclas();
-  }
-
-
-  iniciar();
+}

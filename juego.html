@@ -2,38 +2,57 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>BMO Arcade</title>
+  <title>Alejandra Bravo</title>
+  <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700" rel="stylesheet">
   <link rel="stylesheet" href="css/juego.css">
-
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="js/sweetalert/sweetalert.min.js"></script>
+  <link rel="stylesheet" href="css/juego.css" href="js/sweetalert/sweetalert.css">
 </head>
 <body>
 
   <div class="col-40">
     <div id="titulo">
-      <h1>Rompecabezas</h1>
+      <h1>Rompecabezas Recargado</h1>
     </div>
 
     <div id="instrucciones">
-      <h1>Instrucciones</h1>
+      <h1>Seleccionar</h1>
+    <form>
       <ul>
-        <li>Mover las piezas presionando las teclas de flechas</li>
-        <li>Encontrar el orden correcto de las piezas</li>
-      </ul>
+        <li>cantidad piezas por lado:
+        <input id="cantidadPiezasPorLado" type="number" min="2" value="4" maxlength="4" size="4">
+    </form> </li>
+  <div id="eleccionDeNivel">
+    <li>Nivel:
+      <input class="dificultad" type="radio" id= "opcion1" value="8" name="opciones">
+      <label for = "opcion1" >Fácil</label>
+
+      <input class="dificultad" type="radio" id= "opcion2" value="6" name="opciones">
+      <label for = "opcion2" >Intermedio</label>
+
+      <input class="dificultad" type="radio" id= "opcion3" value="4" name="opciones">
+      <label for = "opcion3" >Difícil</label></li>
     </div>
+        <h1>Instrucciones</h1>
+        <ul>
+          <li>Mover las piezas presionando las teclas de flechas</li>
+          <li>Encontrar el oreden correcto de las piezas</li>
+        </ul>
+
+        <div><button id="boton" class="button">Mezclar</button></div>
+      <div id="contadorMovimientos">Movimientos</br>restantes <span id="contadorDeMovimientos"></span></div>
+
   </div>
+</div>
+
   <div class="col-60">
+    <script src="js/juego.js"></script>
     <div id="juego">
-      <div class="pieza" id="cull1"> <img src="images/Princess1.jpg" alt="pieza1"></div>
-      <div class="pieza" id="cull2"> <img src="images/Princess2.jpg" alt="pieza2"></div>
-      <div class="pieza" id="cull3"> <img src="images/Princess3.jpg" alt="pieza3"></div>
-      <div class="pieza" id="cull4"> <img src="images/Princess4.jpg" alt="pieza4"></div>
-      <div class="pieza" id="cull5"> <img src="images/Princess5.jpg" alt="pieza5"></div>
-      <div class="pieza" id="cull6"> <img src="images/Princess6.jpg" alt="pieza6"></div>
-      <div class="pieza" id="cull7"> <img src="images/Princess7.jpg" alt="pieza7"></div>
-      <div class="pieza" id="cull8"> <img src="images/Princess8.jpg" alt="pieza8"></div>
-      <div class="pieza" id="cull9"> <img src="images/Princess9.jpg" alt="pieza9"></div>
+      <canvas id="canvas" onclick="Juego.capturarMouse()"></canvas> <!-- lo habías puesto con minúscula -->
     </div>
   </div>
+
   <div id="footer">
     Alejandra Bravo.
   </div>
@@ -42,19 +61,40 @@
   <EMBED SRC="Princess-CM.mp3" AUTOSTART=true LOOP=true VOLUME="80" WIDTH="0" HEIGHT="0">
     <!-- Esta idea de poner una musica me
     la dio una compañera la cual no
-    pudo hacerlo y se me planteo y lo ise.
+    pudo hacerlo y se me planteo y lo hice.
     espero que  les guste tanto como ami.
     Busque info y en contre esta paguina
     http://www.htmlpoint.com/guida/html_05.htm-->
   </body>
+
+  <script>
+  $(document).ready(function() {
+
+    var nivelElegido = function() {
+      var dificultad = $('#eleccionDeNivel input:checked').val()
+      var cantPiezasPorLado = document.querySelector('#cantidadPiezasPorLado').value;
+      var cantPiezas = cantPiezasPorLado*cantPiezasPorLado;
+      var cantMovimientos = cantPiezas*dificultad;
+      Juego.iniciar(cantMovimientos);
+    };
+    $( "#eleccionDeNivel input[type=radio]" ).on( "click", nivelElegido );
+
+    $('#boton').click(function(){
+      var cantPiezasPorLado = document.querySelector('#cantidadPiezasPorLado').value;
+      var cantPiezas = cantPiezasPorLado*cantPiezasPorLado;
+      var cantMovimientos = Math.max(Math.pow(cantPiezasPorLado,3),100);
+      Juego.mezclarPiezas(cantMovimientos);
+    });
+  });
+  </script>
   <!-- la idea de este cartel fue del
   proyecto piedra, papel y tijera -->
   <div id="mensajes-ocultos">
-    <div >
+    <div>
       <div id="victoria" class="resultado">
         <h1>¡GANASTE!🎉</h1>
 
       </div>
-    </div >
+    </div>
   </div>
   </html>
